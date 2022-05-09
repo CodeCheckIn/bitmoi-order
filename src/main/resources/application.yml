@@ -8,6 +8,12 @@ springdoc:
       enabled: true
 
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/msa?serverTimezone=Asia/Seoul
+    username: root
+    password: 00000000
+
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
