@@ -1,4 +1,4 @@
-package com.codecheckin.order.repository;
+package com.bitmoi.order.repository;
 
 import org.springframework.stereotype.Repository;
 

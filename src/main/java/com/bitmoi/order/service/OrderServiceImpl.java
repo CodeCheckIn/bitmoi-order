@@ -1,4 +1,4 @@
-package com.codecheckin.order.service;
+package com.bitmoi.order.service;
 
 import org.springframework.stereotype.Service;
 
