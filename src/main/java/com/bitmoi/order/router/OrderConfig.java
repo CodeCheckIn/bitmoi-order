@@ -13,7 +13,7 @@ public class OrderConfig {
     @Bean
     public RouterFunction<ServerResponse> route(OrderHandler handler) {
         return RouterFunctions.route()
-                .GET("/orderbook", handler::getOrderbookList)
+                .GET("/orderbook", handler::getOrderList)
 //                .POST("/order/bid", handler::orderBid)
 //                .POST("/order/bid", handler::orderAsk)
 //                .POST("/order/cancel/", request -> handler.getOrderId(request))
