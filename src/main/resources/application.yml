@@ -1,29 +1,32 @@
 server:
   port: 8092
 
-
 springdoc:
   api-docs:
     groups:
       enabled: true
 
 spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/msa?serverTimezone=Asia/Seoul
-    username: root
-    password: 00000000
+  r2dbc:
+    url: r2dbc:mysql://localhost:3306/msa?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: bitmoi
+    password: bitmoi6!
+
 
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
-      group-id: group-so
+      group-id: bitmoi
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
   producer:
     bootstrap-servers: localhost:9092
     key-serializer: org.apache.kafka.common.serialization.StringSerializer
-    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.JsonSerializer
 
 
+logging:
+  level:
+    root: INFO
+    org.springframework.r2dbc: DEBUG

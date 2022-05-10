@@ -14,8 +14,8 @@ public class OrderConfig {
     public RouterFunction<ServerResponse> route(OrderHandler handler) {
         return RouterFunctions.route()
                 .GET("/orderbook", handler::getOrderList)
-//                .POST("/order/bid", handler::orderBid)
-//                .POST("/order/bid", handler::orderAsk)
+                .POST("/order/bid", handler::orderBid)
+//                .POST("/order/ask", handler::orderAsk)
 //                .POST("/order/cancel/", request -> handler.getOrderId(request))
                 .build();
     }

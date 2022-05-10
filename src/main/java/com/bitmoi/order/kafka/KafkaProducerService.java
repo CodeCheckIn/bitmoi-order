@@ -1,5 +1,6 @@
 package com.bitmoi.order.kafka;
 
+import com.bitmoi.order.domain.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,10 @@ public class KafkaProducerService {
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;
 
+    @Autowired
+    private KafkaTemplate<String, Order> kafkaTemplate1;
+
+
     public void sendBidMessage(String message) {
         logger.info(String.format("Producing Bid message -> %s", message));
         this.kafkaTemplate.send(TOPIC_BID, message);
@@ -26,5 +31,31 @@ public class KafkaProducerService {
         this.kafkaTemplate.send(TOPIC_ASK, message);
     }
 
+
+//
+    public void saveBidMessage1(Order order){
+        logger.info(String.format("User created -> %s", order));
+        this.kafkaTemplate1.send(TOPIC_BID, order);
+    }
+
+
+
+    @Autowired
+    public KafkaProducerService(KafkaTemplate<String, Order> kafkaTemplate1) {
+        this.kafkaTemplate = kafkaTemplate;
+    }
+    //
+    //    public void sendMessage(String message) {
+    //
+    //        Order order = Order.builder()
+    //                .yyyymmdd("2021-01-01")
+    //                .skuCd("10300000033")
+    //                .fieldName("ipgoNo")
+    //                .diff(100)
+    //                .build();
+    //
+    //        // Send a message
+    //        kafkaTemplate.send(TOPIC, order);
+    //    }
 
 }

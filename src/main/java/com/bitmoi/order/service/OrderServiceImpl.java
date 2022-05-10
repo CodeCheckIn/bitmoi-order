@@ -23,6 +23,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
+    //매수 주문하기
+    @Override
+    public Mono<Order> orderBid(Order order){
+        return this.orderRepository.save(order);
+    }
 
 
     //주문 취소
