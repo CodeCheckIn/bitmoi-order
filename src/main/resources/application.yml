@@ -1,16 +1,37 @@
 server:
-  port: 8092
+  port: 8095
 
 springdoc:
   api-docs:
     groups:
       enabled: true
 
+logging:
+  level:
+    org:
+      springframework:
+        r2dbc: DEBUG
+
 spring:
+#    r2dbc:
+#      url: r2dbc:h2:mem:///msa;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+#      username: sa
+#      password:
+#      initialization-mode: always
+#      port: 9093
+#    h2:
+#      console:
+#        enabled: true
+#    jpa:
+#      defer-datasource-initialization: true
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/msa?useUnicode=yes&characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    url: r2dbc:mysql://localhost:3306/msa?characterEncoding=utf8&serverTimezone=Asia/Seoul
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/msa
     username: bitmoi
     password: bitmoi6!
+
+
 
 
   kafka:
@@ -25,8 +46,3 @@ spring:
     key-serializer: org.apache.kafka.common.serialization.StringSerializer
     value-serializer: org.apache.kafka.common.serialization.JsonSerializer
 
-
-logging:
-  level:
-    root: INFO
-    org.springframework.r2dbc: DEBUG

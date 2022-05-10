@@ -1,11 +1,12 @@
 package com.bitmoi.order.handler;
 
-
 import com.bitmoi.order.domain.Order;
-import com.bitmoi.order.kafka.KafkaProducerService;
-import com.bitmoi.order.repository.OrderRepository;
+//import com.bitmoi.order.kafka.KafkaProducerService;
 import com.bitmoi.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -19,11 +20,13 @@ import static org.springframework.web.reactive.function.server.ServerResponse.ok
 @RequiredArgsConstructor
 public class OrderHandler {
 
+    private final Logger logger = LoggerFactory.getLogger(OrderHandler.class);
+
     private final OrderService orderService;
-    private final KafkaProducerService kafkaProducerService;
+//    private final KafkaProducerService kafkaProducerService;
 
     // 매매 주문 목록
-    public Mono<ServerResponse> getOrderList(ServerRequest request){
+    public Mono<ServerResponse> getOrderList(ServerRequest request) {
         Flux<Order> orderFlux = request.bodyToFlux(Order.class);
 
         return ok()
@@ -33,36 +36,50 @@ public class OrderHandler {
     }
 
 
+//    public Mono<ServerResponse> orderBid1(ServerRequest request) {
+//        Mono<Order> PostMono = request.bodyToMono(Order.class);
+////        kafkaProducerService.sendBidMessage("order");
+//
+//        // orderService.orderBid(OrderMono);
+//        return PostMono.just(PostMono)
+//                .flatMap(order ->
+//                ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
+//                        .bodyValue(order));
+//    }
+
+
+
     // 매수 주문하기
-    public Mono<ServerResponse> orderBid(ServerRequest request){
+    public Mono<ServerResponse> orderBid(ServerRequest request) {
         Mono<Order> orderMono = request.bodyToMono(Order.class)
+                .flatMap(order -> orderService.orderBid(order))
                 .log("orderBid --------- ");
 
-//        Order orderbid = new Order();
-
-       kafkaProducerService.sendBidMessage("order");
+//        kafkaProducerService.sendBidMessage("order");
 //        kafkaProducerService.saveBidMessage1("",orderService.orderBid(order));
 
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(orderMono, Order.class)
+                .onErrorResume(error -> ServerResponse.badRequest().build())
                 .log("orderBid ok --------- ");
     }
 
 
     //주문 취소
-    public Mono<ServerResponse> getOrderId(ServerRequest request){
-        Long orderid = Long.valueOf(request.pathVariable("orderid"));
+    public Mono<ServerResponse> getOrderId(ServerRequest request) {
+        Integer orderid = Integer.valueOf(request.pathVariable("orderid"));
 //        Mono<Order> orderMono = request.bodyToMono(Order.class);
         Mono<Order> orderMono = orderService.getOrderId(orderid);
 //        Order order = new Order(id,"cancle");
+        logger.debug("orderMono > " + String.valueOf(orderMono));
+        logger.debug("orderid > " + String.valueOf(orderid));
 
         return ok()
                 .contentType(APPLICATION_JSON)
                 .body(orderMono, Order.class)
                 .log("getOrderId ok --------- ");
     }
-
 
 
 }

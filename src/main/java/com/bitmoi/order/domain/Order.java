@@ -1,14 +1,12 @@
 package com.bitmoi.order.domain;
 
 import lombok.*;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Table(value = "order")
@@ -20,29 +18,36 @@ import java.time.LocalDateTime;
 public class Order {
 
     @Id
-    @Column(value = "order_id")
-    private Long orderId;
+    @Column(value = "orderid")
+    private Integer orderid;
 
-    @Column(value = "user_id")
-    private Long userId;
+    @Column(value = "userid")
+    private Integer userid;
 
-    @Column(value = "coin_id")
-    private Long coinId;
+    @Column(value = "coinid")
+    private Integer coinid;
 
-    private Double price;
-    private Double quantity;
+    @Column(value = "price")
+    private Float price;
+
+    @Column(value = "quantity")
+    private Float quantity;
+
+    @Column(value = "types")
     private String types;
 
-    @Column(value = "is_market_price")
-    private int isMarketPrice;
+    @Column(value = "isparketprice")
+    private int ismarketprice;
 
-    @Column(value = "is_execute")
-    private int isExecute;
+    @Column(value = "isexecute")
+    private int isexecute;
 
     @CreatedDate
-    private LocalDateTime created_at;
+    @Column(value = "createdat")
+    private LocalDateTime createdAt;
 
     @LastModifiedDate
-    private LocalDateTime updated_at;
+    @Column(value = "updateddt")
+    private LocalDateTime updatedAt;
 
 }

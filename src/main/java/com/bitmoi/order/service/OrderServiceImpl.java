@@ -30,9 +30,23 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
+    //매도 주문하기
+    @Override
+    public Mono<Order> orderAsk(Order order){
+        return this.orderRepository.save(order);
+    }
+
+
+    //현재가 매수 주문하기
+    @Override
+    public Mono<Order> orderBidNow(Order order){
+        return this.orderRepository.save(order);
+    }
+
+
     //주문 취소
     @Override
-    public Mono<Order> getOrderId(Long id){
+    public Mono<Order> getOrderId(Integer id){
         return this.orderRepository.findById(id);
     }
 
