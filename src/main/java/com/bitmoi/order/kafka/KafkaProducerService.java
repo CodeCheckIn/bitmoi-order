@@ -21,22 +21,19 @@ public class KafkaProducerService {
     private KafkaTemplate<String, Object> kafkaTemplate1;
 
 
-    public void sendBidMessage(String message) {
-        logger.info(String.format("Producing Bid message -> %s", message));
-        this.kafkaTemplate.send(TOPIC_BID, message);
+
+    //
+    public void saveBidMessage(Order order){
+        logger.info(String.format("saveBidMessage created -> %s", order));
+        this.kafkaTemplate1.send(TOPIC_BID,order);
     }
+
 
     public void sendAskMessage(String message) {
         logger.info(String.format("Producing Ask message -> %s", message));
         this.kafkaTemplate.send(TOPIC_ASK, message);
     }
 
-
-//
-    public void saveBidMessage1(Order order){
-        logger.info(String.format("saveBidMessage1 created -> %s", order));
-        this.kafkaTemplate1.send(TOPIC_BID,order);
-    }
 
 
 

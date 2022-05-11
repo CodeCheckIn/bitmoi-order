@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-//@NoArgsConstructor
+@NoArgsConstructor
 @AllArgsConstructor
 public class Order {
 

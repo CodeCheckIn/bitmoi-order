@@ -40,33 +40,15 @@ public class OrderHandler {
     }
 
 
-//    public Mono<ServerResponse> orderBid1(ServerRequest request) {
-//        Mono<Order> PostMono = request.bodyToMono(Order.class);
-////        kafkaProducerService.sendBidMessage("order");
-//
-//        // orderService.orderBid(OrderMono);
-//        return PostMono.just(PostMono)
-//                .flatMap(order ->
-//                ServerResponse.ok().contentType(MediaType.APPLICATION_JSON)
-//                        .bodyValue(order));
-//    }
-
-
-
     // 매수 주문하기
     public Mono<ServerResponse> orderBid(ServerRequest request) {
         Mono<Order> orderMono = request.bodyToMono(Order.class)
                 .flatMap(order -> {
-//                    order.setIsmarketprice(1);
-                    kafkaProducerService.saveBidMessage1(order);
-                    kafkaProducerService.sendBidMessage("order");
-
-                    return orderService.orderBid(order);
+//                    kafkaProducerService.saveBidMessage(order);
+                    return orderService.orderBid1(order);
                 })
                 .subscribeOn(Schedulers.parallel())
                 .log("orderBid --------- ");
-
-        kafkaProducerService.sendBidMessage("order");
 
         return ok()
 //                .contentType(APPLICATION_JSON)
@@ -75,14 +57,52 @@ public class OrderHandler {
                 .log("orderBid ok --------- ");
     }
 
+    // 매도 주문하기
+    public Mono<ServerResponse> orderAsk(ServerRequest request) {
+        Mono<Order> orderMono = request.bodyToMono(Order.class)
+                .flatMap(order -> {
+                    kafkaProducerService.saveBidMessage(order);
+                    return orderService.orderAsk(order);
+                })
+                .subscribeOn(Schedulers.parallel())
+                .log("orderAsk --------- ");
+
+        return ok()
+//                .contentType(APPLICATION_JSON)
+                .body(orderMono, Order.class)
+                .onErrorResume(error -> ServerResponse.badRequest().build())
+                .log("orderAsk ok --------- ");
+    }
+
+
+    // 매수 & 매도 주문하기
+    public Mono<ServerResponse> orderBidAsk(ServerRequest request) {
+        Mono<Order> orderMono = request.bodyToMono(Order.class)
+                .flatMap(order -> {
+                    kafkaProducerService.saveBidMessage(order);
+                    if(order.getTypes() == "bid"){ //매수
+                        return orderService.orderBid(order);
+                    }else if(order.getTypes() == "ask"){
+                        return orderService.orderAsk(order);
+                    }
+                    return orderService.orderBid(order);
+                })
+                .subscribeOn(Schedulers.parallel())
+                .log("orderBidAsk --------- ");
+
+        return ok()
+//                .contentType(APPLICATION_JSON)
+                .body(orderMono, Order.class)
+                .onErrorResume(error -> ServerResponse.badRequest().build())
+                .log("orderBidAsk ok --------- ");
+    }
+
 
 
     //주문 취소
-    public Mono<ServerResponse> getOrderId(ServerRequest request) {
+    public Mono<ServerResponse> OrderCancel(ServerRequest request) {
         Integer orderid = Integer.valueOf(request.pathVariable("orderid"));
-//        Mono<Order> orderMono = request.bodyToMono(Order.class);
-        Mono<Order> orderMono = orderService.getOrderId(orderid);
-//        Order order = new Order(id,"cancle");
+        Mono<Order> orderMono = orderService.OrderCancel(orderid);
         logger.debug("orderMono > " + String.valueOf(orderMono));
         logger.debug("orderid > " + String.valueOf(orderid));
 

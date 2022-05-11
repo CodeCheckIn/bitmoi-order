@@ -18,7 +18,9 @@ public class OrderConfig {
         return RouterFunctions
                 .route(GET("/orderbook"), handler::getOrderList) //
                 .andRoute(POST("/order/bid"), handler::orderBid) //
-//                .andRoute(POST("/order/cancel/{orderid}").and(accept(MediaType.APPLICATION_JSON)), handler::getOrderId) //
+                .andRoute(POST("/order/ask"), handler::orderAsk) //
+                .andRoute(POST("/order/bidnask"), handler::orderBidAsk) //
+                .andRoute(POST("/order/cancel/{orderid}"), handler::OrderCancel) // 주문 취소
 
 //                .route()
 //                .GET("/orderbook", handler::getOrderList)

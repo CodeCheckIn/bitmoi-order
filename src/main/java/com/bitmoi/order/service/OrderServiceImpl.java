@@ -30,6 +30,18 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
+    @Override
+    public Mono<Order> orderBid1(Order order){
+
+        Integer userId = order.getUserid();
+        Integer coinId = order.getCoinid();
+        Float price = order.getPrice();
+        Float quantity = order.getQuantity();
+        String types = order.getTypes();
+
+        return this.orderRepository.saveAllByOrder(userId,coinId,price,quantity,types);
+    }
+
     //매도 주문하기
     @Override
     public Mono<Order> orderAsk(Order order){
@@ -49,11 +61,8 @@ public class OrderServiceImpl implements OrderService {
 
     //주문 취소
     @Override
-    public Mono<Order> getOrderId(Integer id){
-        //주문 상태 취소로 변경
-        //setTypes("cancel")
-
-        return this.orderRepository.findById(id);
+    public Mono<Order> OrderCancel(Integer id){
+        return this.orderRepository.updateisExecute(id);
     }
 
 
