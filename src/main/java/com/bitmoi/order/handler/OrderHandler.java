@@ -6,6 +6,7 @@ import com.bitmoi.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
@@ -22,6 +23,7 @@ public class OrderHandler {
 
     private final Logger logger = LoggerFactory.getLogger(OrderHandler.class);
 
+    @Autowired
     private final OrderService orderService;
 //    private final KafkaProducerService kafkaProducerService;
 
@@ -52,7 +54,12 @@ public class OrderHandler {
     // 매수 주문하기
     public Mono<ServerResponse> orderBid(ServerRequest request) {
         Mono<Order> orderMono = request.bodyToMono(Order.class)
-                .flatMap(order -> orderService.orderBid(order))
+//                .flatMap(order -> orderService.orderBid(order))
+                .flatMap(order -> {
+                    order.setIsmarketprice(1);
+                    return orderService.orderBid(order);
+                })
+
                 .log("orderBid --------- ");
 
 //        kafkaProducerService.sendBidMessage("order");
@@ -64,6 +71,33 @@ public class OrderHandler {
                 .onErrorResume(error -> ServerResponse.badRequest().build())
                 .log("orderBid ok --------- ");
     }
+
+
+
+    // 시장가로 주문하기
+    public Mono<ServerResponse> orderBidNow(ServerRequest request) {
+        Mono<Order> orderMono = request.bodyToMono(Order.class)
+//                .flatMap(order -> orderService.orderBid(order))
+                .flatMap(order -> {
+                    order.setIsmarketprice(1);
+                    return orderService.orderBid(order);
+                })
+
+                .log("orderBid --------- ");
+
+//        kafkaProducerService.sendBidMessage("order");
+//        kafkaProducerService.saveBidMessage1("",orderService.orderBid(order));
+
+        return ok()
+                .contentType(APPLICATION_JSON)
+                .body(orderMono, Order.class)
+                .onErrorResume(error -> ServerResponse.badRequest().build())
+                .log("orderBid ok --------- ");
+    }
+
+
+
+
 
 
     //주문 취소

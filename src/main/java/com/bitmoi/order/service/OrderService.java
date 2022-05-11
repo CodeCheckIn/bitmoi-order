@@ -17,8 +17,8 @@ public interface OrderService {
     Mono<Order> orderAsk(Order order);
 
 
-    // 현재가 매수 주문하기
-    Mono<Order> orderBidNow(Order order);
+    // 시장가로 매수 주문하기
+//    Mono<Order> orderBidNow(Order order);
 
 
     //주문 취소

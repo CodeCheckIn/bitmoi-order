@@ -1,5 +1,6 @@
-DROP TABLE IF EXISTS msa.order;
-CREATE TABLE msa.order
+use msa;
+# DROP TABLE IF EXISTS msa.order;
+CREATE TABLE IF NOT EXISTS msa.order
 (
     orderId       int NOT NULL AUTO_INCREMENT,
     userId        int,

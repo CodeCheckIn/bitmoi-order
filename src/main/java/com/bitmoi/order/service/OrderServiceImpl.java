@@ -38,13 +38,13 @@ public class OrderServiceImpl implements OrderService {
 
 
     //시장가로 매수 주문하기
-    @Override
-    public Mono<Order> orderBidNow(Order order){
-        //시장가 주문 여부 true
-        order.setIsmarketprice(1);
-
-        return this.orderRepository.save(order);
-    }
+//    @Override
+//    public Mono<Order> orderBidNow(Order order){
+//        //시장가 주문 여부 true
+//        order.setIsmarketprice(1);
+//
+//        return this.orderRepository.save(order);
+//    }
 
 
     //주문 취소

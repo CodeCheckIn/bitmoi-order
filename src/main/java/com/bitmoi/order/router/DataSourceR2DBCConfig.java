@@ -1,6 +1,9 @@
  package com.bitmoi.order.router;
 
+ import io.r2dbc.spi.ConnectionFactories;
  import io.r2dbc.spi.ConnectionFactory;
+ import io.r2dbc.spi.ConnectionFactoryOptions;
+ import org.springframework.beans.factory.annotation.Value;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
  import org.springframework.core.io.ClassPathResource;
@@ -8,23 +11,25 @@
  import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
  import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
+ import static io.r2dbc.spi.ConnectionFactoryOptions.*;
+
  @Configuration
  public class DataSourceR2DBCConfig {
 
-//     @Value("${db.mysql.host}")
-//     private String host;
+//     @Value("localhost")
+//    private String host;
 //
-//     @Value("${db.mysql.port}")
-//     private int port;
+//    @Value("${spring.r2dbc.port}")
+//    private int port;
 //
-//     @Value("${db.mysql.username}")
-//     private String user;
+//    @Value("${spring.r2dbc.username}")
+//    private String user;
 //
-//     @Value("${db.mysql.password}")
-//     private String password;
+//    @Value("${spring.r2dbc.password}")
+//    private String password;
 //
-//     @Value("${db.mysql.database}")
-//     private String database;
+//    @Value("msa")
+//    private String database;
 
 
 //     @Bean
@@ -45,11 +50,6 @@
 //         initializer.setConnectionFactory(connectionFactory);
 ////         initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema1.sql")));
 //         return initializer;
-//     }
-//
-//     @Bean
-//     public DatabaseClient createDataBase(ConnectionFactory connection) {
-//         return DatabaseClient.create(connection);
 //     }
 
 
