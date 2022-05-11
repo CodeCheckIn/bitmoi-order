@@ -16,10 +16,10 @@ public class OrderServiceImpl implements OrderService {
         this.orderRepository = orderRepository;
     }
 
-    //주문 전체 목록
+    //매매 전체 목록
     @Override
     public Flux<Order> getOrderList(){
-        return this.orderRepository.findAll();
+        return this.orderRepository.findByOrderidList();
     }
 
 

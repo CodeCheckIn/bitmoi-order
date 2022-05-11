@@ -1,5 +1,7 @@
  package com.bitmoi.order.router;
 
+ import io.r2dbc.pool.ConnectionPool;
+ import io.r2dbc.pool.ConnectionPoolConfiguration;
  import io.r2dbc.spi.ConnectionFactories;
  import io.r2dbc.spi.ConnectionFactory;
  import io.r2dbc.spi.ConnectionFactoryOptions;
@@ -7,29 +9,32 @@
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
  import org.springframework.core.io.ClassPathResource;
+ import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
  import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator;
  import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
  import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
+
+ import java.time.Duration;
 
  import static io.r2dbc.spi.ConnectionFactoryOptions.*;
 
  @Configuration
  public class DataSourceR2DBCConfig {
 
-//     @Value("localhost")
-//    private String host;
-//
-//    @Value("${spring.r2dbc.port}")
-//    private int port;
-//
-//    @Value("${spring.r2dbc.username}")
-//    private String user;
-//
-//    @Value("${spring.r2dbc.password}")
-//    private String password;
-//
-//    @Value("msa")
-//    private String database;
+     @Value("localhost")
+    private String host;
+
+    @Value("${spring.r2dbc.port}")
+    private int port;
+
+    @Value("${spring.r2dbc.username}")
+    private String user;
+
+    @Value("${spring.r2dbc.password}")
+    private String password;
+
+    @Value("msa")
+    private String database;
 
 
 //     @Bean

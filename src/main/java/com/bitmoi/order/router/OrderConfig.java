@@ -16,16 +16,16 @@ public class OrderConfig {
     @Bean
     public RouterFunction<ServerResponse> route(OrderHandler handler) {
         return RouterFunctions
-//                .route(GET("/orderbook").and(accept(MediaType.APPLICATION_JSON)), handler::getOrderList) //
-//                .andRoute(POST("/order/bid").and(accept(MediaType.APPLICATION_JSON)), handler::orderBid) //
+                .route(GET("/orderbook"), handler::getOrderList) //
+                .andRoute(POST("/order/bid"), handler::orderBid) //
 //                .andRoute(POST("/order/cancel/{orderid}").and(accept(MediaType.APPLICATION_JSON)), handler::getOrderId) //
 
-                .route()
-                .GET("/orderbook", handler::getOrderList)
-                .POST("/order/bid",accept(MediaType.APPLICATION_JSON), handler::orderBid)
-//                .POST("/order/ask", accept(MediaType.APPLICATION_JSON), handler::orderAsk)
-                .POST("/order/cancel/{orderid}", request -> handler.getOrderId(request))
-                .build()
+//                .route()
+//                .GET("/orderbook", handler::getOrderList)
+//                .POST("/order/bid",handler::orderBid)
+////                .POST("/order/ask", accept(MediaType.APPLICATION_JSON), handler::orderAsk)
+//                .POST("/order/cancel/{orderid}", request -> handler.getOrderId(request))
+//                .build()
                 ;
 
 

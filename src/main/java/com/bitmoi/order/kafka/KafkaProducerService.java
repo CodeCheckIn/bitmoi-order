@@ -18,7 +18,7 @@ public class KafkaProducerService {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, Order> kafkaTemplate1;
+    private KafkaTemplate<String, Object> kafkaTemplate1;
 
 
     public void sendBidMessage(String message) {
@@ -34,8 +34,8 @@ public class KafkaProducerService {
 
 //
     public void saveBidMessage1(Order order){
-        logger.info(String.format("User created -> %s", order));
-        this.kafkaTemplate1.send(TOPIC_BID, order);
+        logger.info(String.format("saveBidMessage1 created -> %s", order));
+        this.kafkaTemplate1.send(TOPIC_BID,order);
     }
 
 

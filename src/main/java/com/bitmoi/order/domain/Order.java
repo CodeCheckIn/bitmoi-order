@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
+//@NoArgsConstructor
 @AllArgsConstructor
 public class Order {
 
@@ -37,10 +37,10 @@ public class Order {
     private String types;
 
     @Column(value = "isparketprice")
-    private int ismarketprice;
+    private Integer ismarketprice;
 
     @Column(value = "isexecute")
-    private int isexecute;
+    private Integer isexecute;
 
     @CreatedDate
     @Column(value = "createdat")

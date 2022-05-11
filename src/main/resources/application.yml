@@ -13,10 +13,10 @@ spring:
   #    url: jdbc:mysql://localhost:13306/msa
   #    user: bitmoi
   r2dbc:
-    url: r2dbc:mysql://localhost:13306/msa
+    url: r2dbc:mysql://localhost:3306/msa
     username: bitmoi
     password: bitmoi6!
-    port: 13306
+    port: 3306
     initialization-mode: always
   logging:
     level:
@@ -30,22 +30,22 @@ spring:
 #    console:
 #      enabled: true
 
-  jpa:
-    defer-datasource-initialization: true
+#  jpa:
+#    defer-datasource-initialization: true
 
 
 
 
-kafka:
-  consumer:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: bitmoi
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  producer:
     bootstrap-servers: localhost:9092
-    group-id: bitmoi
-    auto-offset-reset: earliest
-    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-producer:
-  bootstrap-servers: localhost:9092
-  key-serializer: org.apache.kafka.common.serialization.StringSerializer
-  value-serializer: org.apache.kafka.common.serialization.JsonSerializer
+    key-serializer: org.apache.kafka.common.serialization.JsonSerializer
+    value-serializer: org.apache.kafka.common.serialization.JsonSerializer
 
 
