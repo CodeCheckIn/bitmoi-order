@@ -15,23 +15,23 @@
 //@Configuration
 //@EnableR2dbcAuditing
 //public class H2ServerConfig {
-//    private Server webServer;
+//   private Server webServer;
 //
-//    @Value("${spring.r2dbc.port}")
+//   @Value("${spring.r2dbc.port}")
 ////    @Value("9093")
-//    String h2ConsolePort;
+//   String h2ConsolePort;
 //
-//    @EventListener(ContextRefreshedEvent.class)
-//    public void start() throws SQLException {
-//        log.info("starting h2 console at port {}", h2ConsolePort);
-//        this.webServer = Server.createWebServer("-webPort", h2ConsolePort.toString());
-//        this.webServer.start();
-//    }
+//   @EventListener(ContextRefreshedEvent.class)
+//   public void start() throws SQLException {
+//       log.info("starting h2 console at port {}", h2ConsolePort);
+//       this.webServer = Server.createWebServer("-webPort", h2ConsolePort.toString());
+//       this.webServer.start();
+//   }
 //
-//    //종료이벤트
-//    @EventListener(ContextClosedEvent.class)
-//    public void stop() {
-//        log.info("stopping h2 console at port {}", h2ConsolePort);
-//        this.webServer.stop();
-//    }
+//   //종료이벤트
+//   @EventListener(ContextClosedEvent.class)
+//   public void stop() {
+//       log.info("stopping h2 console at port {}", h2ConsolePort);
+//       this.webServer.stop();
+//   }
 //}

@@ -1,41 +1,24 @@
--- -- CREATE TABLE IF NOT EXISTS order
--- -- (
--- --     orderId       int   NOT NULL AUTO_INCREMENT COMMENT '게시글 아이디',
--- --     userId        int    NULL COMMENT '사용자 아이디',
--- --     coinId        int    NULL COMMENT '코인 아이디',
--- --     price         float NULL COMMENT '가격',
--- --     quantity      float NULL COMMENT '수량',
--- --     types         VARCHAR(255) COMMENT '주문 상태',
--- --     isMarketPrice int      DEFAULT '0' COMMENT 'y-0, n-1',
--- --     isExecute     int      DEFAULT '0' COMMENT 'y-0, n-1',
--- --     create_at     datetime DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
--- --     update_at     datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일',
--- --     PRIMARY KEY (orderId)
--- -- );
---
---
--- CREATE TABLE IF NOT EXISTS order
--- (
---     orderId       int   NOT NULL AUTO_INCREMENT ,
---     userId        int    ,
---     coinId        int   ,
---     price         float ,
---     quantity      float ,
---     types         VARCHAR(255) ,
---     isMarketPrice int      DEFAULT '0' COMMENT 'y-0, n-1',
---     isExecute     int      DEFAULT '0' COMMENT 'y-0, n-1',
---     createAt     datetime DEFAULT CURRENT_TIMESTAMP COMMENT '생성일',
---     updateAt     datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '수정일',
---     PRIMARY KEY (orderId)
--- );
---
---
---
--- -- INSERT INTO order
--- -- --     (orderId, userId, coinId, price, quantity, types, isMarketPrice, isExecute, create_at, update_at)
--- -- VALUES (1, 20, 1234, 230000.0, 90.0, 'wait', 0, 1, now(), now());
--- --
--- --
--- -- INSERT INTO order
--- -- --     (orderId, userId, coinId, price, quantity, types, isMarketPrice, isExecute, create_at, update_at)
--- -- VALUES (1, 20, 1234, 230000.0, 90.0, 'wait', 0, 1, now(), now());
+DROP TABLE IF EXISTS msa.order;
+CREATE TABLE msa.order
+(
+    orderId       int NOT NULL AUTO_INCREMENT,
+    userId        int,
+    coinId        int,
+    price         float,
+    quantity      float,
+    types         VARCHAR(255),
+    isMarketPrice int DEFAULT '0' COMMENT 'y-0, n-1',
+    isExecute     int DEFAULT '0' COMMENT 'y-0, n-1',
+    createAt      datetime COMMENT '생성일',
+    updateAt      datetime COMMENT '수정일',
+    PRIMARY KEY (orderId)
+);
+
+
+insert into msa.order
+VALUES (null, 20, 1234, 230000.0, 90.0, 'wait', 0, 1,now(),now());
+
+
+
+
+

@@ -37,9 +37,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    //현재가 매수 주문하기
+    //시장가로 매수 주문하기
     @Override
     public Mono<Order> orderBidNow(Order order){
+        //시장가 주문 여부 true
+        order.setIsmarketprice(1);
+
         return this.orderRepository.save(order);
     }
 
@@ -47,6 +50,9 @@ public class OrderServiceImpl implements OrderService {
     //주문 취소
     @Override
     public Mono<Order> getOrderId(Integer id){
+        //주문 상태 취소로 변경
+        //setTypes("cancel")
+
         return this.orderRepository.findById(id);
     }
 

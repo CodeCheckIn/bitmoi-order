@@ -6,43 +6,81 @@ springdoc:
     groups:
       enabled: true
 
-logging:
-  level:
-    org:
-      springframework:
-        r2dbc: DEBUG
 
+#?characterEncoding=utf8&serverTimezone=Asia/Seoul
 spring:
-#    r2dbc:
-#      url: r2dbc:h2:mem:///msa;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
-#      username: sa
-#      password:
-#      initialization-mode: always
-#      port: 9093
-#    h2:
-#      console:
-#        enabled: true
-#    jpa:
-#      defer-datasource-initialization: true
+  #  liquibase:
+  #    url: jdbc:mysql://localhost:13306/msa
+  #    user: root
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/msa?characterEncoding=utf8&serverTimezone=Asia/Seoul
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/msa
-    username: bitmoi
-    password: bitmoi6!
+    url: r2dbc:mysql://localhost:13306/msa
+    #    username: bitmoi
+    #    password: bitmoi6!
+    username: root
+    password: 00000000
+  jpa:
+    defer-datasource-initialization: true
+  logging:
+    level:
+      org.springframework.data.r2dbc: Debug
+    #  r2dbc:
+    #    url: r2dbc:h2:mem:///msa;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    #    username: sa
+    #    password:
+    #    initialization-mode: always
+    #    port: 9093
+    #  h2:
+    #    console:
+    #      enabled: true
+
+  #  datasource:
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
+  #    url: jdbc:mysql://localhost:13306/msa
+  #    username: root
+  #    password: 00000000
+
+  #---
+  #spring:
+  #  profiles: test
+  #    r2dbc:
+  #      url: r2dbc:mysql://localhost:3306/msa
+  #      username: bitmoi
+  #      password: bitmoi6!
+  #---
+  #spring:
+  #  profiles: dev
+  #    r2dbc:
+  #      url: r2dbc:mysql://localhost:3306/msa
+  #      username: bitmoi
+  #      password: bitmoi6!
 
 
-
-
-  kafka:
-    consumer:
-      bootstrap-servers: localhost:9092
-      group-id: bitmoi
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-  producer:
+kafka:
+  consumer:
     bootstrap-servers: localhost:9092
-    key-serializer: org.apache.kafka.common.serialization.StringSerializer
-    value-serializer: org.apache.kafka.common.serialization.JsonSerializer
+    group-id: bitmoi
+    auto-offset-reset: earliest
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+producer:
+  bootstrap-servers: localhost:9092
+  key-serializer: org.apache.kafka.common.serialization.StringSerializer
+  value-serializer: org.apache.kafka.common.serialization.JsonSerializer
 
+
+
+
+
+#db:
+#  mysql:
+#    host: localhost
+#    port: 13306
+#    username: root
+#    password: 00000000
+#    database: msa
+
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        r2dbc: DEBUG

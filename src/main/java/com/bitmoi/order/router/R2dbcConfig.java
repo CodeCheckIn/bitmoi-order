@@ -22,32 +22,32 @@
 //@EnableTransactionManagement
 //@RequiredArgsConstructor
 //public class R2dbcConfig extends AbstractR2dbcConfiguration {
-//    //localhost9093접속->jdbc:h2:mem:msa 유저 sa 연결(embeded h2)
-//    @Override
-//    public ConnectionFactory connectionFactory() {
-//        return new H2ConnectionFactory(H2ConnectionConfiguration.builder()
-//                .inMemory("msa")
-//                .property(H2ConnectionOption.DB_CLOSE_DELAY, "-1") // DB연결이 닫혀도 유지되도록 설정
-//                .username("sa")
-//                .build());
-//    }
+//   //localhost9093접속->jdbc:h2:mem:msa 유저 sa 연결(embeded h2)
+//   @Override
+//   public ConnectionFactory connectionFactory() {
+//       return new H2ConnectionFactory(H2ConnectionConfiguration.builder()
+//               .inMemory("msa")
+//               .property(H2ConnectionOption.DB_CLOSE_DELAY, "-1") // DB연결이 닫혀도 유지되도록 설정
+//               .username("sa")
+//               .build());
+//   }
 //
 //
-//    @Bean
-//    public ConnectionFactoryInitializer h2DbInitializer() {
-//        ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
-//        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+//   @Bean
+//   public ConnectionFactoryInitializer h2DbInitializer() {
+//       ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
+//       ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
 //
-//        CompositeDatabasePopulator populator = new CompositeDatabasePopulator();
-//        populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
+//       CompositeDatabasePopulator populator = new CompositeDatabasePopulator();
+//       populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema1.sql")));
 //
-////        resourceDatabasePopulator.addScript(new ClassPathResource("schema.sql"));
+////        resourceDatabasePopulator.addScript(new ClassPathResource("schema1.sql"));
 //
-//        initializer.setConnectionFactory(connectionFactory());
-//        initializer.setDatabasePopulator(resourceDatabasePopulator);
-//        initializer.setDatabasePopulator(populator);
-//        return initializer;
-//    }
+//       initializer.setConnectionFactory(connectionFactory());
+//       initializer.setDatabasePopulator(resourceDatabasePopulator);
+//       initializer.setDatabasePopulator(populator);
+//       return initializer;
+//   }
 //
 ////    public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
 ////
@@ -55,7 +55,7 @@
 ////            initializer.setConnectionFactory(connectionFactory);
 ////
 ////            CompositeDatabasePopulator populator = new CompositeDatabasePopulator();
-////            populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema.sql")));
+////            populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("schema1.sql")));
 ////            populator.addPopulators(new ResourceDatabasePopulator(new ClassPathResource("data.sql")));
 ////            initializer.setDatabasePopulator(populator);
 ////
