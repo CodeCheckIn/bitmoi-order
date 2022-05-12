@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table(value = "order")
+@Table(value = "msa.order")
 @Getter
 @Setter
 @ToString
@@ -47,7 +47,7 @@ public class Order {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(value = "updateddt")
+    @Column(value = "updatedat")
     private LocalDateTime updatedAt;
 
 }

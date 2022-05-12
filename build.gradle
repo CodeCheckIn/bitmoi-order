@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.5.13'
+    id 'org.springframework.boot' version '2.6.7'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
@@ -32,10 +32,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok' //lombok
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'io.projectreactor:reactor-test' //Reactive
-    implementation 'mysql:mysql-connector-java' //mysql
     implementation 'dev.miku:r2dbc-mysql' //mysql-r2dbc
-//    implementation 'com.h2database:h2'
-//    implementation 'io.r2dbc:r2dbc-h2'
+    implementation 'mysql:mysql-connector-java' //mysql
     implementation 'org.springframework.kafka:spring-kafka' //kafka
     testImplementation 'org.springframework.kafka:spring-kafka-test' //kafka
 

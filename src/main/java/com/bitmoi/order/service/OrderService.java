@@ -12,15 +12,10 @@ public interface OrderService {
     // 매수 주문하기
     Mono<Order> orderBid(Order order);
 
-    Mono<Order> orderBid1(Order order);
-
 
     // 매도 주문하기
     Mono<Order> orderAsk(Order order);
 
-
-    // 시장가로 매수 주문하기
-//    Mono<Order> orderBidNow(Order order);
 
     //주문 취소
     Mono<Order> OrderCancel(Integer id);

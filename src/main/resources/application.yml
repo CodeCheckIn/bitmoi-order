@@ -1,39 +1,20 @@
 server:
   port: 8095
 
-springdoc:
-  api-docs:
-    groups:
-      enabled: true
-
-
-#?characterEncoding=utf8&serverTimezone=Asia/Seoul
 spring:
-  #  liquibase:
-  #    url: jdbc:mysql://localhost:13306/msa
-  #    user: bitmoi
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/msa
+    url: r2dbc:mysql://127.0.0.1:13306/msa?autoReconnect=true
     username: bitmoi
     password: bitmoi6!
-    port: 3306
-    initialization-mode: always
+    port: 13306
+#    pool:
+#      initial-size: 100
+#      max-size: 500
+#      max-idle-time: 30m
+#      validation-query: SELECT 1
   logging:
     level:
       org.springframework.data.r2dbc: Debug
-#    url: r2dbc:h2:mem:///msa;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
-#    username: sa
-#    password:
-#    initialization-mode: always
-#    port: 9093
-#  h2:
-#    console:
-#      enabled: true
-
-#  jpa:
-#    defer-datasource-initialization: true
-
-
 
 
   kafka:

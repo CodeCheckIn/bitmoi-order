@@ -1,62 +1,30 @@
  package com.bitmoi.order.router;
 
- import io.r2dbc.pool.ConnectionPool;
- import io.r2dbc.pool.ConnectionPoolConfiguration;
- import io.r2dbc.spi.ConnectionFactories;
+ import dev.miku.r2dbc.mysql.MySqlConnectionConfiguration;
+ import dev.miku.r2dbc.mysql.MySqlConnectionFactory;
  import io.r2dbc.spi.ConnectionFactory;
- import io.r2dbc.spi.ConnectionFactoryOptions;
- import org.springframework.beans.factory.annotation.Value;
  import org.springframework.context.annotation.Bean;
  import org.springframework.context.annotation.Configuration;
  import org.springframework.core.io.ClassPathResource;
  import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
+ import org.springframework.data.r2dbc.config.EnableR2dbcAuditing;
+ import org.springframework.data.r2dbc.repository.config.EnableR2dbcRepositories;
  import org.springframework.r2dbc.connection.init.CompositeDatabasePopulator;
  import org.springframework.r2dbc.connection.init.ConnectionFactoryInitializer;
  import org.springframework.r2dbc.connection.init.ResourceDatabasePopulator;
 
- import java.time.Duration;
-
- import static io.r2dbc.spi.ConnectionFactoryOptions.*;
 
  @Configuration
- public class DataSourceR2DBCConfig {
+ @EnableR2dbcRepositories
+ @EnableR2dbcAuditing
+ public class DataSourceR2DBCConfig extends AbstractR2dbcConfiguration {
 
-     @Value("localhost")
-    private String host;
-
-    @Value("${spring.r2dbc.port}")
-    private int port;
-
-    @Value("${spring.r2dbc.username}")
-    private String user;
-
-    @Value("${spring.r2dbc.password}")
-    private String password;
-
-    @Value("msa")
-    private String database;
-
-
-//     @Bean
-//     public ConnectionFactory connectionFactory(){
-//         return ConnectionFactories.get(ConnectionFactoryOptions.builder()
-//                 .option(DRIVER,"mysql")
-//                 .option(HOST,host)
-//                 .option(PORT, port)
-//                 .option(USER,user)
-//                 .option(PASSWORD, password)
-//                 .option(DATABASE, database)
-//                 .build());
-//     }
-
-//     @Bean
-//     ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
-//         ConnectionFactoryInitializer initializer = new ConnectionFactoryInitializer();
-//         initializer.setConnectionFactory(connectionFactory);
-////         initializer.setDatabasePopulator(new ResourceDatabasePopulator(new ClassPathResource("schema1.sql")));
-//         return initializer;
-//     }
-
+     @Override
+     public ConnectionFactory connectionFactory() {
+         return MySqlConnectionFactory.from(
+                 MySqlConnectionConfiguration.builder().build()
+         );
+     }
 
      @Bean
      public ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {

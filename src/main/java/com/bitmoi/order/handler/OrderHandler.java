@@ -1,14 +1,11 @@
 package com.bitmoi.order.handler;
 
 import com.bitmoi.order.domain.Order;
-//import com.bitmoi.order.kafka.KafkaProducerService;
 import com.bitmoi.order.kafka.KafkaProducerService;
 import com.bitmoi.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
@@ -25,7 +22,7 @@ public class OrderHandler {
 
     private final Logger logger = LoggerFactory.getLogger(OrderHandler.class);
 
-    @Autowired
+//    @Autowired
     private final OrderService orderService;
     private final KafkaProducerService kafkaProducerService;
 
@@ -36,7 +33,6 @@ public class OrderHandler {
                 .contentType(APPLICATION_JSON)
                 .body(orderFlux, Order.class)
                 .log("getOrderbookList ok --------- ");
-
     }
 
 
@@ -45,7 +41,7 @@ public class OrderHandler {
         Mono<Order> orderMono = request.bodyToMono(Order.class)
                 .flatMap(order -> {
 //                    kafkaProducerService.saveBidMessage(order);
-                    return orderService.orderBid1(order);
+                    return orderService.orderBid(order);
                 })
                 .subscribeOn(Schedulers.parallel())
                 .log("orderBid --------- ");
@@ -76,26 +72,26 @@ public class OrderHandler {
 
 
     // 매수 & 매도 주문하기
-    public Mono<ServerResponse> orderBidAsk(ServerRequest request) {
-        Mono<Order> orderMono = request.bodyToMono(Order.class)
-                .flatMap(order -> {
-                    kafkaProducerService.saveBidMessage(order);
-                    if(order.getTypes() == "bid"){ //매수
-                        return orderService.orderBid(order);
-                    }else if(order.getTypes() == "ask"){
-                        return orderService.orderAsk(order);
-                    }
-                    return orderService.orderBid(order);
-                })
-                .subscribeOn(Schedulers.parallel())
-                .log("orderBidAsk --------- ");
-
-        return ok()
-//                .contentType(APPLICATION_JSON)
-                .body(orderMono, Order.class)
-                .onErrorResume(error -> ServerResponse.badRequest().build())
-                .log("orderBidAsk ok --------- ");
-    }
+//    public Mono<ServerResponse> orderBidAsk(ServerRequest request) {
+//        Mono<Order> orderMono = request.bodyToMono(Order.class)
+//                .flatMap(order -> {
+//                    kafkaProducerService.saveBidMessage(order);
+//                    if(order.getTypes() == "bid"){ //매수
+//                        return orderService.orderBid(order);
+//                    }else if(order.getTypes() == "ask"){
+//                        return orderService.orderAsk(order);
+//                    }
+//                    return orderService.orderBid(order);
+//                })
+//                .subscribeOn(Schedulers.parallel())
+//                .log("orderBidAsk --------- ");
+//
+//        return ok()
+////                .contentType(APPLICATION_JSON)
+//                .body(orderMono, Order.class)
+//                .onErrorResume(error -> ServerResponse.badRequest().build())
+//                .log("orderBidAsk ok --------- ");
+//    }
 
 
 
