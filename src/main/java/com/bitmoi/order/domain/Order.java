@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
@@ -35,9 +36,6 @@ public class Order {
 
     @Column(value = "types")
     private String types;
-
-    @Column(value = "isparketprice")
-    private Integer ismarketprice;
 
     @Column(value = "state")
     private String state;

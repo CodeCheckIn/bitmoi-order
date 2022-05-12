@@ -5,54 +5,48 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaProducerService {
 
     private static final Logger logger = LoggerFactory.getLogger(KafkaProducerService.class);
-    private static final String TOPIC_BID = "order-bid";
-    private static final String TOPIC_ASK = "order-ask";
+    private static final String TOPIC_ORDER = "bitmoi-order";
 
     @Autowired
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    @Autowired
-    private KafkaTemplate<String, Object> kafkaTemplate1;
-
-
-
-    //
-    public void saveBidMessage(Order order){
-        logger.info(String.format("saveBidMessage created -> %s", order));
-        this.kafkaTemplate1.send(TOPIC_BID,order);
-    }
-
-
-    public void sendAskMessage(String message) {
-        logger.info(String.format("Producing Ask message -> %s", message));
-        this.kafkaTemplate.send(TOPIC_ASK, message);
-    }
-
-
-
-
-    @Autowired
-    public KafkaProducerService(KafkaTemplate<String, Order> kafkaTemplate1) {
+    public KafkaProducerService(KafkaTemplate<String, Object> kafkaTemplate) {
         this.kafkaTemplate = kafkaTemplate;
     }
-    //
-    //    public void sendMessage(String message) {
-    //
-    //        Order order = Order.builder()
-    //                .yyyymmdd("2021-01-01")
-    //                .skuCd("10300000033")
-    //                .fieldName("ipgoNo")
-    //                .diff(100)
-    //                .build();
-    //
-    //        // Send a message
-    //        kafkaTemplate.send(TOPIC, order);
-    //    }
+
+
+    //매매 주문
+    public void sendOrderMessage(Order data) {
+        Message<Order> order_message = MessageBuilder
+                .withPayload(data)
+                .setHeader(KafkaHeaders.TOPIC, TOPIC_ORDER)
+                .build();
+
+        logger.info("!!sendOrderMessage send to topic={}, message={},", TOPIC_ORDER, data);
+        kafkaTemplate.send(order_message);
+    }
+
+
+    //주문 취소
+    public void cancelOrderMessage(Order data) {
+        Message<Order> order_message = MessageBuilder
+                .withPayload(data)
+                .setHeader(KafkaHeaders.TOPIC, TOPIC_ORDER)
+                .build();
+
+        logger.info("!!cancelOrderMessage send to topic={}, message={},", TOPIC_ORDER, data);
+        kafkaTemplate.send(order_message);
+    }
+
+
 
 }

@@ -17,20 +17,10 @@ public class OrderConfig {
     @Bean
     public RouterFunction<ServerResponse> route(OrderHandler handler) {
         return RouterFunctions
-                .route(GET("/orderbook"), handler::getOrderList) //
-                .andRoute(POST("/order/bid"), handler::orderBid) //
-                .andRoute(POST("/order/ask"), handler::orderAsk) //
-//                .andRoute(POST("/order/bidnask"), handler::orderBidAsk) //
-                .andRoute(POST("/order/cancel/{orderid}"), handler::OrderCancel) // 주문 취소
-
-//                .route()
-//                .GET("/orderbook", handler::getOrderList)
-//                .POST("/order/bid",handler::orderBid)
-////                .POST("/order/ask", accept(MediaType.APPLICATION_JSON), handler::orderAsk)
-//                .POST("/order/cancel/{orderid}", request -> handler.getOrderId(request))
-//                .build()
-                ;
-
-
+                .route()
+                .GET("/orderbook", handler::getOrderList) // 매매 목록 확인
+                .POST("/orders", handler::orderBidnAsk) // 매매 주문
+                .POST("/order/cancel/{orderid}", handler::OrderCancel) // 주문 취소
+                .build();
     }
 }
