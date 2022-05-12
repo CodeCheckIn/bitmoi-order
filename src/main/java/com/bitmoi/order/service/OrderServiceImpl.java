@@ -38,8 +38,10 @@ public class OrderServiceImpl implements OrderService {
         Float price = order.getPrice();
         Float quantity = order.getQuantity();
         String types = order.getTypes();
+        Integer ismarketprice = order.getIsmarketprice();
+        String state = order.getState();
 
-        return this.orderRepository.saveAllByOrder(userId,coinId,price,quantity,types);
+        return this.orderRepository.saveAllByOrder(userId,coinId,price,quantity,types,state);
     }
 
     //매도 주문하기

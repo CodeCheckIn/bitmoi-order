@@ -39,8 +39,8 @@ public class Order {
     @Column(value = "isparketprice")
     private Integer ismarketprice;
 
-    @Column(value = "isexecute")
-    private Integer isexecute;
+    @Column(value = "state")
+    private String state;
 
     @CreatedDate
     @Column(value = "createdat")

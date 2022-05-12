@@ -14,9 +14,10 @@ public interface OrderRepository extends ReactiveCrudRepository<Order,Integer> {
     @Query("select * from msa.order")
     Flux<Order> findByOrderidList();
 
-    @Query("insert into msa.order (userId,coinId,price,quantity,types) values (:userid,:coinid,:price,:quantity,:types )")
+    @Query("insert into msa.order (userId,coinId,price,quantity,types,state) values (:userid,:coinid,:price,:quantity,:types,:state )")
     Mono<Order> saveAllByOrder(@Param("userid") Integer userId, @Param("coinid") Integer coinId
-            ,@Param("price") Float price ,@Param("quantity") Float quantity, @Param("types") String types );
+            ,@Param("price") Float price ,@Param("quantity") Float quantity, @Param("types") String types
+            , @Param("state") String state);
 
 //userId,coinId,price,quantity,types
 
