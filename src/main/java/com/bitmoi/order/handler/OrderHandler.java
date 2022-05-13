@@ -57,7 +57,7 @@ public class OrderHandler {
         Integer orderid = Integer.valueOf(request.pathVariable("orderid"));
         Mono<Orderbook> orderMono = orderService.OrderCancel(orderid)
                 .subscribeOn(Schedulers.parallel())
-                .doOnSuccess(res -> kafkaProducerService.cancelOrderMessage(res)
+                .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res)
                 );
 
         return ok()
