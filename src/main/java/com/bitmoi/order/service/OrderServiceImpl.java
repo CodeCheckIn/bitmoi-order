@@ -1,6 +1,6 @@
 package com.bitmoi.order.service;
 
-import com.bitmoi.order.domain.Order;
+import com.bitmoi.order.domain.Orderbook;
 import com.bitmoi.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,19 +15,19 @@ public class OrderServiceImpl implements OrderService {
 
     //매매 전체 목록
     @Override
-    public Flux<Order> getOrderList(){
+    public Flux<Orderbook> getOrderList(){
         return this.orderRepository.findAll();
     }
 
     //매매 주문하기
     @Override
-    public Mono<Order> orderBidnAsk(Order order){
-        return this.orderRepository.save(order);
+    public Mono<Orderbook> orderBidnAsk(Orderbook orderbook){
+        return this.orderRepository.save(orderbook);
     }
 
     //주문 취소
     @Override
-    public Mono<Order> OrderCancel(Integer id){
+    public Mono<Orderbook> OrderCancel(Integer id){
         return this.orderRepository.updateisExecute(id);
     }
 

@@ -1,6 +1,6 @@
 package com.bitmoi.order.handler;
 
-import com.bitmoi.order.domain.Order;
+import com.bitmoi.order.domain.Orderbook;
 import com.bitmoi.order.kafka.KafkaProducerService;
 import com.bitmoi.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -28,17 +28,17 @@ public class OrderHandler {
 
     // 매매 주문 목록
     public Mono<ServerResponse> getOrderList(ServerRequest request) {
-        Flux<Order> orderFlux = orderService.getOrderList();
+        Flux<Orderbook> orderFlux = orderService.getOrderList();
         return ok()
                 .contentType(APPLICATION_JSON)
-                .body(orderFlux, Order.class)
+                .body(orderFlux, Orderbook.class)
                 .log("getOrderbookList ok --------- ");
     }
 
 
     // 매매 주문하기
     public Mono<ServerResponse> orderBidnAsk(ServerRequest request) {
-        Mono<Order> orderMono = request.bodyToMono(Order.class)
+        Mono<Orderbook> orderMono = request.bodyToMono(Orderbook.class)
                 .flatMap(order -> orderService.orderBidnAsk(order))
                 .subscribeOn(Schedulers.parallel())
                 .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res)
@@ -46,7 +46,7 @@ public class OrderHandler {
 
         return ok()
                 .contentType(APPLICATION_JSON)
-                .body(orderMono, Order.class)
+                .body(orderMono, Orderbook.class)
                 .onErrorResume(error -> ServerResponse.badRequest().build())
                 .log("orderBidnAsk ok --------- ");
     }
@@ -55,14 +55,14 @@ public class OrderHandler {
     //주문 취소
     public Mono<ServerResponse> OrderCancel(ServerRequest request) {
         Integer orderid = Integer.valueOf(request.pathVariable("orderid"));
-        Mono<Order> orderMono = orderService.OrderCancel(orderid)
+        Mono<Orderbook> orderMono = orderService.OrderCancel(orderid)
                 .subscribeOn(Schedulers.parallel())
                 .doOnSuccess(res -> kafkaProducerService.cancelOrderMessage(res)
                 );
 
         return ok()
                 .contentType(APPLICATION_JSON)
-                .body(orderMono, Order.class)
+                .body(orderMono, Orderbook.class)
                 .onErrorResume(error -> ServerResponse.badRequest().build())
                 .log("getOrderId ok --------- ");
     }

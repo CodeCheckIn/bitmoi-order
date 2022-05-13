@@ -9,14 +9,14 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
-@Table(value = "msa.order")
+@Table(value = "msa.orderbook")
 @Getter
 @Setter
 @ToString
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Orderbook {
 
     @Id
     @Column(value = "orderid")

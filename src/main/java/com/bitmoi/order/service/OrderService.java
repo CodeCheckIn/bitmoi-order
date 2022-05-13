@@ -1,18 +1,18 @@
 package com.bitmoi.order.service;
 
-import com.bitmoi.order.domain.Order;
+import com.bitmoi.order.domain.Orderbook;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface OrderService {
 
     // 주문 전체 목록
-    Flux<Order> getOrderList();
+    Flux<Orderbook> getOrderList();
 
     // 매매 주문하기
-    Mono<Order> orderBidnAsk(Order order);
+    Mono<Orderbook> orderBidnAsk(Orderbook orderbook);
 
     //주문 취소
-    Mono<Order> OrderCancel(Integer id);
+    Mono<Orderbook> OrderCancel(Integer id);
 
 }
