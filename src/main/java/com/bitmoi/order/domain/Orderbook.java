@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Table(value = "msa.orderbook")
@@ -19,20 +20,20 @@ import java.time.LocalDateTime;
 public class Orderbook {
 
     @Id
-    @Column(value = "orderid")
-    private Integer orderid;
+    @Column(value = "orderbook_id")
+    private Integer orderbookid;
 
-    @Column(value = "userid")
+    @Column(value = "user_id")
     private Integer userid;
 
-    @Column(value = "coinid")
+    @Column(value = "coin_id")
     private Integer coinid;
 
     @Column(value = "price")
-    private Float price;
+    private BigDecimal price;
 
     @Column(value = "quantity")
-    private Float quantity;
+    private BigDecimal quantity;
 
     @Column(value = "types")
     private String types;
@@ -41,11 +42,11 @@ public class Orderbook {
     private String state;
 
     @CreatedDate
-    @Column(value = "createdat")
+    @Column(value = "created_at")
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(value = "updatedat")
+    @Column(value = "updated_at")
     private LocalDateTime updatedAt;
 
 }
