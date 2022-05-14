@@ -20,7 +20,7 @@ public class OrderConfig {
                 .route()
                 .GET("/orderbook", handler::getOrderList) // 매매 목록 확인
                 .POST("/orders", handler::orderBidnAsk) // 매매 주문
-                .POST("/order/cancel/{orderid}", handler::OrderCancel) // 주문 취소
+                .POST("/order/cancel/{orderbookid}", handler::OrderCancel) // 주문 취소
                 .build();
     }
 }

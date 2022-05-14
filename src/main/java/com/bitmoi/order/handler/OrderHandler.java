@@ -22,7 +22,6 @@ public class OrderHandler {
 
     private final Logger logger = LoggerFactory.getLogger(OrderHandler.class);
 
-    //    @Autowired
     private final OrderService orderService;
     private final KafkaProducerService kafkaProducerService;
 
@@ -54,11 +53,11 @@ public class OrderHandler {
 
     //주문 취소
     public Mono<ServerResponse> OrderCancel(ServerRequest request) {
-        Integer orderid = Integer.valueOf(request.pathVariable("orderid"));
+        Integer orderid = Integer.valueOf(request.pathVariable("orderbookid"));
         Mono<Orderbook> orderMono = orderService.OrderCancel(orderid)
                 .subscribeOn(Schedulers.parallel())
-                .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res)
-                );
+                .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res))
+                ;
 
         return ok()
                 .contentType(APPLICATION_JSON)
@@ -66,6 +65,7 @@ public class OrderHandler {
                 .onErrorResume(error -> ServerResponse.badRequest().build())
                 .log("getOrderId ok --------- ");
     }
+
 
 
 }

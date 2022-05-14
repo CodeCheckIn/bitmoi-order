@@ -10,17 +10,16 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-@Table(value = "bitmoi.ORDERBOOK")
+@Table(value = "bitmoi.WALLET")
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Orderbook {
+public class Wallet {
 
     @Id
-    @Column(value = "orderbook_id")
-    private Integer orderbookid;
+    @Column(value = "wallet_id")
+    private Integer walletid;
 
     @Column(value = "user_id")
     private Integer userid;
@@ -28,17 +27,14 @@ public class Orderbook {
     @Column(value = "coin_id")
     private Integer coinid;
 
-    @Column(value = "price")
-    private BigDecimal price;
-
     @Column(value = "quantity")
     private BigDecimal quantity;
 
-    @Column(value = "types")
-    private String types;
+    @Column(value = "waiting_qty")
+    private BigDecimal waiting_qty;
 
-    @Column(value = "state")
-    private String state;
+    @Column(value = "avg_price")
+    private BigDecimal avg_price;
 
     @CreatedDate
     @Column(value = "created_at")

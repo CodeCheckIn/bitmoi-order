@@ -1,6 +1,5 @@
--- use msa;
--- DROP TABLE IF EXISTS msa.orderbook;
--- CREATE TABLE IF NOT EXISTS msa.orderbook
+-- DROP TABLE IF EXISTS bitmoi.orderbook;
+-- CREATE TABLE IF NOT EXISTS bitmoi.orderbook
 -- (
 --     orderbook_id   int NOT NULL AUTO_INCREMENT,
 --     user_id    int,
