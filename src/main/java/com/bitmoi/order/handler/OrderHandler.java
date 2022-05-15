@@ -102,11 +102,15 @@ public class OrderHandler {
                     BigDecimal wallet_qty = n.getWaiting_qty().add(order_quan);
                     System.out.println("wal > " + wal + " ,order_quan >  " + order_quan + " , wallet_qty > " + wallet_qty);
 
-                    if (val >= 0) { //order quantity가 더 적은경우
+                    if (val >= 0) { //order quantity가 더 적은 경우 (주문 전송)
                         System.out.println("val1 > " + n + orderbook.getUserid());
                         n.setWaiting_qty(wallet_qty);
                         return walletService.updateWaitQuantity(n);
                     }
+                    else { // order quantity가 더 많은 경우 (주문 거절)
+
+                    }
+                    // order quantity가 더 많은 경우 (주문 거절)
                     return Mono.just(new Orderbook());
                 })
                 .map(m -> orderbook);
