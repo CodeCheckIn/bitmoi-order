@@ -2,6 +2,8 @@ server:
   port: 8095
 
 spring:
+  application:
+    name: order-serice
   r2dbc:
     url: r2dbc:mysql://localhost:3306/bitmoi?autoReconnect=true
     username: bitmoi
