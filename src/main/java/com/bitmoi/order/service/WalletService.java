@@ -8,16 +8,9 @@ import java.math.BigDecimal;
 public interface WalletService {
 
     // 대기수량 업데이트
-    Mono<Wallet> updateQuantity(Integer userid, Integer coinid, BigDecimal quantity);
-
     Mono<Wallet> updateWaitQuantity(Wallet wallet);
 
-
-    //수량 가져오기
-    Mono<Wallet> getQuantity(Integer orderid, Integer coinid);
-
-    //
+    // 해당 지갑 내용 가져오기
     Mono<Wallet> getWallet(Integer orderid, Integer coinid);
-
 
 }

@@ -62,6 +62,7 @@ public class OrderHandler {
         Mono<Orderbook> orderMono = request.bodyToMono(Orderbook.class)
                 .flatMap(order -> orderService.orderBidnAsk(order))
                 .flatMap(orderbook -> {
+                    System.out.println("orderbook > "+orderbook);
                     return walletQuan(orderbook);
                 })
                 .subscribeOn(Schedulers.parallel())
@@ -107,7 +108,9 @@ public class OrderHandler {
                         n.setWaiting_qty(wallet_qty);
                         return walletService.updateWaitQuantity(n);
                     }
-                    return Mono.just(new Orderbook());
+                    //주문 거절됨
+                    orderbook.setTypes("reject");
+                    return orderService.orderBidnAsk(orderbook);
                 })
                 .map(m -> orderbook);
     }

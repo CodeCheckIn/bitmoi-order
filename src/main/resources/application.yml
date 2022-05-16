@@ -3,7 +3,7 @@ server:
 
 spring:
   r2dbc:
-    url: r2dbc:mysql://localhost:3306/bitmoi?autoReconnect=true
+    url: r2dbc:mysql://localhost:13306/bitmoi?autoReconnect=true
     username: bitmoi
     password: bitmoi6!
 #    pool:
