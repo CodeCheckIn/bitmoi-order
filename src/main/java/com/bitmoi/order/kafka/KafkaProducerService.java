@@ -39,7 +39,6 @@ public class KafkaProducerService {
     //주문 취소
     public void cancelOrderMessage(Orderbook data) {
 
-
         Message<Orderbook> order_message = MessageBuilder
                 .withPayload(data)
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_ORDER)
