@@ -1,6 +1,6 @@
 HELP.md
 .gradle
-kafka.yml
+**/src/main/resources/kafka.yml
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
