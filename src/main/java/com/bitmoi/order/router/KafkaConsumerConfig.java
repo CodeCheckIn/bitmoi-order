@@ -25,6 +25,9 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.consumer.group-id}")
     private String KAFKA_GROUPID;
 
+    @Value("{spring.kafka.consumer.auto-offset-reset}")
+    private String RESET_CONFIG;
+
     @Bean
     public ConsumerFactory<String, Object> getConsumerProps() {
 
@@ -36,25 +39,13 @@ public class KafkaConsumerConfig {
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, KAFKA_GROUPID);
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, deserializer);
         return new DefaultKafkaConsumerFactory<>(
                 props,
                 new StringDeserializer(),
                 deserializer);
-
-
-//        Map<String, Object> configs = new HashMap<>();
-//        configs.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, BOOTSTRAP_SERVER);
-//        configs.put(ConsumerConfig.GROUP_ID_CONFIG, KAFKA_GROUPID);
-//
-//        return new DefaultKafkaConsumerFactory<>(
-//                configs,
-//                new StringDeserializer(),
-////                new JsonDeserializer<>(Object.class)),
-//        new ErrorHandlingDeserializer(new JsonDeserializer<>(Orderbook.class)))
-//                ;
     }
 
 

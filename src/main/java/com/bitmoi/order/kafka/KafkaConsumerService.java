@@ -25,23 +25,10 @@ public class KafkaConsumerService {
 
 
     @KafkaListener(topics = "bitmoi-order", groupId = "bitmoi")
-    public void consume(@Headers MessageHeaders headers, @Payload String payload) {
-        logger.info("CONSUME HEADERS : " + headers.toString());
-        logger.info("CONSUME PAYLOAD : " + payload);
+    public void consume(@Headers MessageHeaders headers, @Payload Object payload) {
         System.out.println("CONSUME HEADERS : " + headers.toString());
         System.out.println("CONSUME PAYLOAD : " + payload);
     }
-
-
-//    @KafkaListener(topics = "order-bid", groupId = "bitmoi")
-//    public void consumeBid(String message) {
-//        logger.info(String.format("Consumed Bid message -> %s", message));
-//    }
-//
-//    @KafkaListener(topics = "order-ask", groupId = "bitmoi")
-//    public void consumeAsk(String message) {
-//        logger.info(String.format("Consumed Ask message -> %s", message));
-//    }
 
 
 }
