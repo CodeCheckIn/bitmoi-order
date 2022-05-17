@@ -45,6 +45,9 @@ jobs:
         eureka.client.service-url.defaultZone: ${{ secrets.EUREKA_DEFAULTZONE }}
         jwt.secret: ${{ secrets.JWT_SECRET }}
         server.port: 0
+        spring.kafka.consumer.bootstrap-servers: ${{ secrets.MSK_BOOTSTRAP_SERVER }}
+        spring.kafka.producer.bootstrap-servers: ${{ secrets.MSK_BOOTSTRAP_SERVER }}
+
 
     # [2]
     - name: Build with Gradle
