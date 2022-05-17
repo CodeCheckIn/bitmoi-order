@@ -13,11 +13,11 @@ public interface WalletRepository extends R2dbcRepository<Wallet,Integer> {
 
     //waiting_qty 수량 변경
     @Modifying
-    @Query("update wallet set waiting_qty = :quantity where user_id = :userid and coin_id = :coinid;")
+    @Query("update bitmoi.wallet set waiting_qty = :quantity where user_id = :userid and coin_id = :coinid;")
     Mono<Wallet> updateWaitQuantity(@Param("userid") Integer userid, @Param("coinid") Integer coinid, @Param("quantity") BigDecimal quantity);
 
     // 해당 지갑 내용 가져오기
-    @Query("select * from wallet where user_id = :userid and coin_id = :coinid;")
-    Mono<Wallet> getWallet(@Param("userid") Integer orderid, @Param("coinid") Integer coinid);
+    @Query("select * from bitmoi.wallet where user_id = :userid and coin_id = :coinid;")
+    Mono<Wallet> getWallet(@Param("userid") Integer userid, @Param("coinid") Integer coinid);
 
 }

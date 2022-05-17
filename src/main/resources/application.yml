@@ -34,14 +34,14 @@ spring:
       auto-offset-reset: earliest
       enable-auto-commit: true
       max-poll-records: 1000
-#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-#      value-deserializer: org.apache.kafka.common.serialization.JsonDeserializer
-#      properties.spring.json.trusted.packages: com.bitmoi
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties.spring.json.trusted.packages: com.bitmoi
   producer:
     bootstrap-servers: localhost:9092
-#    key-serializer: org.apache.kafka.common.serialization.StringSerializer
-#    value-serializer: org.apache.kafka.common.serialization.JsonSerializer
-#    properties.spring.json.add.type.headers: false
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.JsonSerializer
+    properties.spring.json.add.type.headers: false
 
 jwt:
   secret: Y29kZXN0YXRlcy1iaXRodW1iLW1zYS10ZWFtLW1lbWJlci1zcHJpbmctYm9vdC13ZWJmbHV4LWp3dC1zZWNyZXQ

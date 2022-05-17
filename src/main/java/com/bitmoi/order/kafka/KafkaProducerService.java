@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
+import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.MimeTypeUtils;
 
 @Service
 public class KafkaProducerService {
@@ -25,8 +27,8 @@ public class KafkaProducerService {
 
 
     //주문 관련된 메시지
-    public void sendOrderMessage(Orderbook data) {
-        Message<Orderbook> order_message = MessageBuilder
+    public void sendOrderMessage(Object data) {
+        Message<Object> order_message = MessageBuilder
                 .withPayload(data)
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_ORDER)
                 .build();

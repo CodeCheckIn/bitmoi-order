@@ -31,7 +31,7 @@ public class KafkaConsumerConfig {
     @Bean
     public ConsumerFactory<String, Object> getConsumerProps() {
 
-        JsonDeserializer<Object> deserializer = new JsonDeserializer<>(Object.class);
+        JsonDeserializer<Object> deserializer = new JsonDeserializer<>(Object.class,false);
         deserializer.setRemoveTypeHeaders(false);
         deserializer.addTrustedPackages("*");
         deserializer.setUseTypeMapperForKey(true);

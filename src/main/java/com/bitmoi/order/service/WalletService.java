@@ -11,6 +11,6 @@ public interface WalletService {
     Mono<Wallet> updateWaitQuantity(Wallet wallet);
 
     // 해당 지갑 내용 가져오기
-    Mono<Wallet> getWallet(Integer orderid, Integer coinid);
+    Mono<Wallet> getWallet(Integer userid, Integer coinid);
 
 }

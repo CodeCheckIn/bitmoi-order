@@ -22,8 +22,8 @@ public class WalletServiceImpl implements WalletService{
 
     // 해당 지갑 내용 가져오기
     @Override
-    public Mono<Wallet> getWallet(Integer orderid, Integer coinid){
-        return this.walletRepository.getWallet(orderid, coinid);
+    public Mono<Wallet> getWallet(Integer userid, Integer coinid){
+        return this.walletRepository.getWallet(userid, coinid);
     }
 
 }

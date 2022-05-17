@@ -83,6 +83,7 @@ public class OrderHandler {
 
     private Mono<Orderbook> walletQuan(Orderbook orderbook) {
         logger.info("지갑 Waiting_qty 업데이트");
+        System.out.println("######q userid > "+String.valueOf(orderbook.getUserid()) + " , coinid " + String.valueOf(orderbook.getCoinid()));
         return (Mono<Orderbook>) walletService.getWallet(orderbook.getUserid(), orderbook.getCoinid())
                 .flatMap(n -> {
                     int val = n.getQuantity().subtract(n.getWaiting_qty()).compareTo(orderbook.getQuantity().multiply(orderbook.getPrice()));
@@ -93,7 +94,6 @@ public class OrderHandler {
                     System.out.println("wal > " + wal + " ,order_quan >  " + order_quan + " , wallet_qty > " + wallet_qty);
 
                     if (val >= 0) { //order quantity가 더 적은 경우 (주문 전송)
-                        System.out.println("val1 > " + n + orderbook.getUserid());
                         n.setWaiting_qty(wallet_qty);
                         return walletService.updateWaitQuantity(n);
                     }
