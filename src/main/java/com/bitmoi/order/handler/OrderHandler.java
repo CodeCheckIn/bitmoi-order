@@ -5,6 +5,7 @@ import com.bitmoi.order.domain.Wallet;
 import com.bitmoi.order.kafka.KafkaProducerService;
 import com.bitmoi.order.service.OrderService;
 import com.bitmoi.order.service.WalletService;
+import com.bitmoi.order.util.JwtDecode;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class OrderHandler {
     private final OrderService orderService;
     private final WalletService walletService;
     private final KafkaProducerService kafkaProducerService;
+    private final JwtDecode jwtDecode;
 
     // 매매 주문 목록
     public Mono<ServerResponse> getOrderList(ServerRequest request) {
@@ -59,13 +61,18 @@ public class OrderHandler {
     // 매매 주문하기
     public Mono<ServerResponse> orderBidnAsk(ServerRequest request) {
         logger.info("매매 주문하기");
+
         Mono<Orderbook> orderMono = request.bodyToMono(Orderbook.class)
-                .flatMap(order -> orderService.orderBidnAsk(order))
+                .flatMap(user -> {
+                    return orderService.getUserId(jwtDecode.decode(request.headers().asHttpHeaders().getFirst("Authorization")));
+                })
+                .flatMap(orderbook -> orderService.orderBidnAsk(orderbook))
                 .flatMap(orderbook -> {
                     System.out.println("orderbook > "+orderbook);
                     return walletQuan(orderbook);
                 })
                 .subscribeOn(Schedulers.parallel())
+//                .doOnSuccess(res -> kafkaProducerService.jsonsendOrderMessage(res));
                 .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res));
 
         return ok()

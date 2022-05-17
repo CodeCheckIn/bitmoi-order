@@ -15,4 +15,6 @@ public interface OrderService {
     //주문 취소
     Mono<Orderbook> OrderCancel(Integer id);
 
+    //
+    Mono<Orderbook> getUserId(Integer id);
 }

@@ -17,17 +17,21 @@ public class KafkaConsumerService {
     @KafkaListener(topics = "bitmoi-order", groupId = "bitmoi"
             , containerFactory = "consumerListener"
     )
-    public void consumeOrder(@Headers MessageHeaders messageHeaders, Orderbook orderbook) {
+    public void consumeOrder( Orderbook orderbook) {
+        //@Headers MessageHeaders messageHeaders,
         logger.info(String.format("------- consumeOrder Orderbook message -> %s", orderbook));
         System.out.println("------- consumeOrder orderbook > " + orderbook);
-        System.out.println("messageHeaders > " + messageHeaders);
+//        System.out.println("messageHeaders > " + messageHeaders);
     }
 
 
     @KafkaListener(topics = "bitmoi-order", groupId = "bitmoi")
-    public void consume(@Headers MessageHeaders headers, @Payload Object payload) {
+    public void consume(@Headers MessageHeaders headers, @Payload(required = false) Object payload) {
         System.out.println("CONSUME HEADERS : " + headers.toString());
         System.out.println("CONSUME PAYLOAD : " + payload);
+        headers.keySet().forEach(key -> {
+            System.out.println("key >"+key +" , get(key) > "+ headers.get(key));
+        });
     }
 
 
