@@ -31,24 +31,13 @@ public class KafkaProducerService {
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_ORDER)
                 .build();
 
-        logger.info("!!sendOrderMessage send to topic={}, message={},", TOPIC_ORDER, data);
-        kafkaTemplate.send(order_message);
-    }
-
-
-    //주문 취소
-//    public void jsonsendOrderMessage(Orderbook data) {
-//        System.out.println("##### jsonsendOrder data > "+data);
 //        Orderbook orderbook = Orderbook.builder()
 //                .userid(data.getUserid())
 //                .coinid(data.getCoinid())
 //                .build();
-//        System.out.println("##### jsonsendOrder orderbook > "+orderbook);
-//
-//        kafkaTemplate.send(TOPIC_ORDER,orderbook);
-//        logger.info("!!jsonsendOrderMessage send to topic={}, message={},", TOPIC_ORDER, data);
-//    }
-
+        logger.info("!!sendOrderMessage send to topic={}, message={},", TOPIC_ORDER, data);
+        kafkaTemplate.send(order_message);
+    }
 
 
 }

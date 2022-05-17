@@ -42,22 +42,6 @@ public class OrderHandler {
                 .log("getOrderbookList ok --------- ");
     }
 
-
-    //public Mono<ServerResponse> orderBidnAsk(ServerRequest request) {
-    //        Mono<Order> orderMono = request.bodyToMono(Order.class)
-    //                .flatMap(order -> orderService.orderBidnAsk(order))
-    //                .subscribeOn(Schedulers.parallel())
-    //                .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res)
-    //                );
-    //
-    //        return ok()
-    //                .contentType(APPLICATION_JSON)
-    //                .body(orderMono, Order.class)
-    //                .onErrorResume(error -> ServerResponse.badRequest().build())
-    //                .log("orderBidnAsk ok --------- ");
-    //    }
-
-
     // 매매 주문하기
     public Mono<ServerResponse> orderBidnAsk(ServerRequest request) {
         logger.info("매매 주문하기");
@@ -72,7 +56,6 @@ public class OrderHandler {
                     return walletQuan(orderbook);
                 })
                 .subscribeOn(Schedulers.parallel())
-//                .doOnSuccess(res -> kafkaProducerService.jsonsendOrderMessage(res));
                 .doOnSuccess(res -> kafkaProducerService.sendOrderMessage(res));
 
         return ok()
