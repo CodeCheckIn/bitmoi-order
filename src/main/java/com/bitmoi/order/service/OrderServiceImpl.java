@@ -2,8 +2,10 @@ package com.bitmoi.order.service;
 
 import com.bitmoi.order.domain.Orderbook;
 import com.bitmoi.order.repository.OrderRepository;
+import com.bitmoi.order.util.JwtDecode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.server.ServerRequest;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -12,6 +14,7 @@ import reactor.core.publisher.Mono;
 public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
+    private final JwtDecode jwtDecode;
 
     //매매 전체 목록
     @Override
@@ -32,10 +35,12 @@ public class OrderServiceImpl implements OrderService {
         return this.orderRepository.findById(id);
     }
 
-    //getUserId
+    //사용자 id decode
     @Override
-    public Mono<Orderbook> getUserId(Integer id){
-        return this.orderRepository.findById(id);
+    public Mono<Orderbook> saveUserid(Orderbook orderbook, ServerRequest request){
+         orderbook.setUserid(jwtDecode.decode(request.headers().asHttpHeaders().getFirst("Authorization")));
+        return this.orderRepository.save(orderbook);
     }
+
 
 }

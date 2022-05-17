@@ -30,7 +30,6 @@ public class OrderHandler {
     private final OrderService orderService;
     private final WalletService walletService;
     private final KafkaProducerService kafkaProducerService;
-    private final JwtDecode jwtDecode;
 
     // 매매 주문 목록
     public Mono<ServerResponse> getOrderList(ServerRequest request) {
@@ -48,7 +47,7 @@ public class OrderHandler {
 
         Mono<Orderbook> orderMono = request.bodyToMono(Orderbook.class)
                 .flatMap(user -> {
-                    return orderService.getUserId(jwtDecode.decode(request.headers().asHttpHeaders().getFirst("Authorization")));
+                    return orderService.saveUserid(user, request);
                 })
                 .flatMap(orderbook -> orderService.orderBidnAsk(orderbook))
                 .flatMap(orderbook -> {
