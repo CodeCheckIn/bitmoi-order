@@ -33,10 +33,10 @@ spring:
       group-id: bitmoi
       auto-offset-reset: earliest
       enable-auto-commit: true
-      max-poll-records: 1000
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      properties.spring.json.trusted.packages: com.bitmoi
+#      max-poll-records: 1000
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      properties.spring.json.trusted.packages: com.bitmoi
   producer:
     bootstrap-servers: localhost:9092
     key-serializer: org.apache.kafka.common.serialization.StringSerializer
