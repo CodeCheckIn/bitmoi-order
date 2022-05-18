@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     //주문 취소
     @Override
     public Mono<Orderbook> OrderCancel(Integer id){
-        orderRepository.updateisExecute(id);
+        orderRepository.updateisExecute(id).subscribe();
         return this.orderRepository.findById(id);
     }
 
