@@ -105,4 +105,14 @@ public class OrderHandler {
     }
 
 
+    //사용자의 매매 목록
+    public Mono<ServerResponse> getAllByTypes(ServerRequest request) {
+        logger.info("사용자의 매매 목록");
+        Flux<Orderbook> orderFlux = orderService.getAllByTypes(request);
+        return ok()
+                .contentType(APPLICATION_JSON)
+                .body(orderFlux, Orderbook.class)
+                .log("getAllByTypes ok --------- ");
+    }
+
 }

@@ -28,6 +28,14 @@ public class OrderServiceImpl implements OrderService {
         return this.orderRepository.save(orderbook);
     }
 
+    //사용자의 매매 목록
+    @Override
+    public Flux<Orderbook> getAllByTypes(ServerRequest request){
+        Integer userid = jwtDecode.decode(request.headers().asHttpHeaders().getFirst("Authorization"));
+        System.out.println("## getAllByTypes > "+userid);
+        return this.orderRepository.getAllByTypes(userid);
+    }
+
     //주문 취소
     @Override
     public Mono<Orderbook> OrderCancel(Integer id){

@@ -13,6 +13,9 @@ public interface OrderService {
     // 매매 주문하기
     Mono<Orderbook> orderBidnAsk(Orderbook orderbook);
 
+    //사용자의 매매 목록
+    Flux<Orderbook> getAllByTypes(ServerRequest request);
+
     //주문 취소
     Mono<Orderbook> OrderCancel(Integer id);
 
