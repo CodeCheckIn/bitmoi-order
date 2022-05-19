@@ -98,7 +98,7 @@ public class OrderHandler {
                         return walletService.updateWaitQuantity(n);
                     }
                     //주문 거절됨
-                    orderbook.setTypes("reject");
+                    orderbook.setState("reject");
                     return orderService.orderBidnAsk(orderbook);
                 })
                 .map(m -> orderbook);
