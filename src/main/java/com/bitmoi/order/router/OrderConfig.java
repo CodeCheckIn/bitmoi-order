@@ -21,6 +21,7 @@ public class OrderConfig {
                 .GET("/orderbook", handler::getOrderList) // 매매 목록 확인
                 .POST("/orders", handler::orderBidnAsk) // 매매 주문
                 .GET("/order/cancel/{orderbookid}", handler::OrderCancel) // 주문 취소
+                .GET("/orderbook/user", handler::getAllByTypes) // 매매 목록 확인
                 .build();
     }
 }
